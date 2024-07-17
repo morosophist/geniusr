@@ -9,9 +9,15 @@ get_lyrics <- function(session) {
     html_nodes(xpath = '//span[contains(@class, "SongHeaderdesktop__")]') %>%
     html_text(trim = TRUE)
 
-  artist <-  session %>%
-    html_nodes(xpath = '//a[contains(@class, "SongHeaderdesktop__Artist")]') %>%
-    html_text(trim = TRUE)
+#  artist <-  session %>%
+#    html_nodes(xpath = '//a[contains(@class, "SongHeaderdesktop__Artist")]') %>%
+#    html_text(trim = TRUE)
+
+	artist <-  session %>% 
+		html_nodes(xpath = '//div[contains(@class, "HeaderArtistAndTracklistdesktop__ListArtists")]') %>% 
+		html_text(trim = TRUE) |> 
+		first()
+
 
   # ensure line breaks are preserved correctly
   xml_find_all(lyrics, ".//br") %>% xml_add_sibling("p", "\n")
